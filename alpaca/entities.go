@@ -19,6 +19,7 @@ import (
 
 type Account struct {
 	ID                    string          `json:"id"`
+	Name                  string          `json:"name"`
 	AccountNumber         string          `json:"account_number"`
 	Status                string          `json:"status"`
 	CryptoStatus          string          `json:"crypto_status"`

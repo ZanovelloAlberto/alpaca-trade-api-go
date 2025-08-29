@@ -141,6 +141,25 @@ func (c *Client) GetAccount() (*Account, error) {
 	return &account, nil
 }
 
+func (c *Client) GetAccounts() ([]Account, error) {
+	u, err := url.Parse(fmt.Sprintf("%s/%s/accounts", c.opts.BaseURL, apiVersion))
+	if err != nil {
+		return nil, err
+	}
+
+	resp, err := c.get(u)
+	if err != nil {
+		return nil, err
+	}
+	defer closeResp(resp)
+
+	var account []Account
+	if err = unmarshal(resp, &account); err != nil {
+		return nil, err
+	}
+	return account, nil
+}
+
 // GetAccountConfigurations returns the current account configurations
 func (c *Client) GetAccountConfigurations() (*AccountConfigurations, error) {
 	u, err := url.Parse(fmt.Sprintf("%s/%s/account/configurations", c.opts.BaseURL, apiVersion))
